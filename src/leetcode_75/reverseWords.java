@@ -1,5 +1,7 @@
 package leetcode_75;
 
+import java.util.Stack;
+
 /**
  * Given an input string s, reverse the order of the words.
  * A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
@@ -19,20 +21,23 @@ public class reverseWords {
      */
     
     public static String reverseAllWords(String s){
-        String result = new String();
-        String[] strArr;
-        s = s.trim(); //removes extra spaces from start and end
-        strArr = s.split(" ");
-
-        for (String str : strArr) {
-            if (str.trim() == ""){
-                continue;
-            } else {
-                result = str+" "+result;
+        Stack<String> st = new Stack<String>();
+        for (int i = 0; i < s.length(); i++) {
+            String str = new String();
+            while(i<s.length() && s.charAt(i)!=' '){
+                str = str + s.charAt(i);
+                i++;
+            }
+            if (str.length()>0){
+                st.push(str);
             }
         }
-
-        return result.trim();
+        String result = new String();
+        while (st.size()>1) {
+            result = result + st.pop() + " ";
+        }
+        result = result + st.pop();
+        return result;
     }
 
 }
